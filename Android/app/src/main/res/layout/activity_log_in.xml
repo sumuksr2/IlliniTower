@@ -10,10 +10,8 @@
         android:id="@+id/imgBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/DetUtLDW0AUuPh1"
-        android:contentDescription="@string/background"
+        android:background="@drawable/lobby_blurred"
         android:scaleType="fitStart"
-        android:src="@drawable/Lobby Portrait"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
-        android:fontFamily="@font/ubuntu_light"
         android:text="Illini Tower"
         android:textSize="70sp"
         android:textStyle="bold"
@@ -38,8 +35,7 @@
         android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logotwo" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -58,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:onClick="sendMessage"
         android:text="Sign Up"
         android:textSize="16sp"
         android:textStyle="bold"
