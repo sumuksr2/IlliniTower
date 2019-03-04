@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "250325234260",
+    "firebase_url": "https://illinitower-36cdd.firebaseio.com",
+    "project_id": "illinitower-36cdd",
+    "storage_bucket": "illinitower-36cdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250325234260:android:0f11ba5c5780c1fd",
+        "android_client_info": {
+          "package_name": "com.it.sumuk.illinitower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250325234260-3m9tvs77s8u22feddvckitp689q3tau6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.it.sumuk.illinitower",
+            "certificate_hash": "4a77cb34bdfffb98260dc3b7ad38394fc25de590"
+          }
+        },
+        {
+          "client_id": "250325234260-erao6gsci531f7i2tgg9oa223c4qdi5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqddvaw_QMS8BZZAF0EI5iG5bCdKvzC8o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250325234260-erao6gsci531f7i2tgg9oa223c4qdi5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
