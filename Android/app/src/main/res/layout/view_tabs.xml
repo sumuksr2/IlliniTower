@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="184dp"
+    android:background="@color/colorPrimaryDark"
+    tools:background="@color/colorPrimaryDark"
+    tools:layout_gravity="bottom">
+
+    <ImageView
+        android:id="@+id/vt_centerImage"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/vt_leftImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="56dp"
+        android:layout_gravity="start|bottom"
+        android:background="@drawable/forkknife"
+        android:layout_marginStart="24dp"/>
+
+    <ImageView
+        android:id="@+id/vt_rightImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="56dp"
+        android:layout_gravity="end|bottom"
+        android:background="@drawable/bulletin_icon"
+        android:layout_marginEnd="24dp"/>
+
+    <View
+        android:id="@+id/vt_indicator"
+        android:layout_width="48dp"
+        android:layout_height="4dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="44dp"
+        android:background="@color/common_google_signin_btn_text_dark_focused" />
+
+
+</FrameLayout>

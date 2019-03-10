@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class LogIn extends AppCompatActivity {
+public class MainPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_main_page);
         transparentStatusAndNavigation();
     }
 

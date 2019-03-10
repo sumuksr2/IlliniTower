@@ -2,21 +2,36 @@ package com.it.sumuk.illinitower;
 
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class LogIn extends AppCompatActivity {
+import com.it.sumuk.illinitower.adapter.MainPagerAdapter;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
         transparentStatusAndNavigation();
-    }
 
+        final View background = findViewById(R.id.am_background_view);
+        ViewPager viewPager = (ViewPager)findViewById(R.id.am_view_pager);
+        MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+
+        final int colorGreen = ContextCompat.getColor(this, R.color.colorPrimaryDark);
+        final int colorBlue = ContextCompat.getColor(this, R.color.colorPrimary);
+
+
+    }
     private void transparentStatusAndNavigation() {
         //make full transparent statusBar
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
@@ -48,4 +63,5 @@ public class LogIn extends AppCompatActivity {
         }
         win.setAttributes(winParams);
     }
+
 }
