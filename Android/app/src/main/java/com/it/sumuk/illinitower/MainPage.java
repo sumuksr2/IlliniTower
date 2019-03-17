@@ -1,5 +1,6 @@
 package com.it.sumuk.illinitower;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 public class MainPage extends AppCompatActivity {
 
@@ -14,6 +16,17 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+        final ImageView dining = (ImageView) findViewById(R.id.imgDining);
+
+        dining.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPage.this, Dining.class);
+                startActivity(intent);
+            }
+        });
+
         transparentStatusAndNavigation();
     }
 
