@@ -2,6 +2,7 @@ package com.it.sumuk.illinitower;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,8 +19,17 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         final ImageView dining = (ImageView) findViewById(R.id.imgDining);
+        final ImageView diningmenu = (ImageView) findViewById(R.id.imgDailyMenu);
 
         dining.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPage.this, DiningMain.class);
+                startActivity(intent);
+            }
+        });
+
+        diningmenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainPage.this, Dining.class);
