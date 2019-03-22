@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.it.sumuk.illinitower">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -17,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -36,7 +39,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Dining" />
-        <activity android:name=".DiningMain"></activity>
+        <activity android:name=".DiningMain" />
+        <activity android:name=".PortalMain" />
+        <activity android:name=".BulletinMain"></activity>
     </application>
 
 </manifest>

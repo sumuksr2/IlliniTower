@@ -1,17 +1,13 @@
 package com.it.sumuk.illinitower;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,45 +17,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainPage extends AppCompatActivity {
+public class PortalMain extends AppCompatActivity {
 
-    private TextView nameLabel;
-    private TextView flexLabel;
-    private TextView unitLabel;
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
     public static String currentUserID;
+    private TextView balance;
+    private TextView date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_portal_main);
 
-        final ImageView dining = (ImageView) findViewById(R.id.imgDining);
-        final ImageView diningmenu = (ImageView) findViewById(R.id.imgDailyMenu);
-        final ImageView portal = (ImageView) findViewById(R.id.imgPortal);
-        final ImageView bulletin = (ImageView) findViewById(R.id.imgBulletin);
-        nameLabel = (TextView) findViewById(R.id.txtName);
-        flexLabel = (TextView) findViewById(R.id.txtFlexHome);
-        unitLabel = (TextView) findViewById(R.id.txtUnit);
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getUid();
+        balance = (TextView) findViewById(R.id.txtBalance);
+        date = (TextView) findViewById(R.id.txtDueDate);
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String unitNumber = dataSnapshot.child(currentUserID).child("Unit").getValue().toString();
-                String flexNumber = dataSnapshot.child(currentUserID).child("Flex").getValue().toString();
-                String firstName = dataSnapshot.child(currentUserID).child("FirstName").getValue().toString();
+                String myBalance = dataSnapshot.child(currentUserID).child("Balance").getValue().toString();
+                myBalance = "$" + myBalance;
+                balance.setText(myBalance);
 
-                firstName = "Welcome, " + firstName + "!";
-                unitNumber = "Unit: " + unitNumber;
-                flexNumber = "IlliniFlex: $" + flexNumber;
-
-                nameLabel.setText(firstName);
-                flexLabel.setText(flexNumber);
-                unitLabel.setText(unitNumber);
+                String myDate = dataSnapshot.child(currentUserID).child("Date").getValue().toString();
+                myDate = "Due Date: " + myDate;
+                date.setText(myDate);
             }
 
             @Override
@@ -68,37 +54,7 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        dining.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, DiningMain.class);
-                startActivity(intent);
-            }
-        });
 
-        diningmenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, Dining.class);
-                startActivity(intent);
-            }
-        });
-
-        portal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, PortalMain.class);
-                startActivity(intent);
-            }
-        });
-
-        bulletin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainPage.this, BulletinMain.class);
-                startActivity(intent);
-            }
-        });
 
         transparentStatusAndNavigation();
     }
