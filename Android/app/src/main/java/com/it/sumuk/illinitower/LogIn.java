@@ -42,6 +42,9 @@ public class LogIn extends AppCompatActivity {
         logIn = findViewById(R.id.btnLogIn);
         mAuth = FirebaseAuth.getInstance();
 
+        passwordin.setText("");
+        usernamein.setText("");
+
 
         transparentStatusAndNavigation();
 
@@ -69,6 +72,27 @@ public class LogIn extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+
+        guestLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signInAnonymously().addOnCompleteListener(LogIn.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(LogIn.this, MainPage.class);
+                            startActivity(intent);
+                        } else {
+                            // If the sign in fails displays a message to the user.
+                            Toast.makeText(LogIn.this, "Error, try again later.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
             }
         });
     }

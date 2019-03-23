@@ -60,14 +60,25 @@ public class DiningMain extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String swipes = dataSnapshot.child(currentUserID).child("Meals").getValue().toString();
-                swipeslabel.setText(swipes);
-                int swipesint = Integer.parseInt(swipes);
-                int calculationtemp = 200 - swipesint;
-                int marginset = (int) (calculationtemp * 3);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) swipeBar.getLayoutParams();
-                lp.setMargins(5, 5, marginset, 5);
-                swipeBar.setLayoutParams(lp);
+                try{
+                    String swipes = dataSnapshot.child(currentUserID).child("Meals").getValue().toString();
+                    swipeslabel.setText(swipes);
+                    int swipesint = Integer.parseInt(swipes);
+                    int calculationtemp = 200 - swipesint;
+                    int marginset = (int) (calculationtemp * 3);
+                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) swipeBar.getLayoutParams();
+                    lp.setMargins(5, 5, marginset, 5);
+                    swipeBar.setLayoutParams(lp);
+                }catch (Exception e){
+                    String swipes = "0";
+                    swipeslabel.setText(swipes);
+                    int swipesint = Integer.parseInt(swipes);
+                    int calculationtemp = 200 - swipesint;
+                    int marginset = (int) (calculationtemp * 3);
+                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) swipeBar.getLayoutParams();
+                    lp.setMargins(5, 5, marginset, 5);
+                    swipeBar.setLayoutParams(lp);
+                }
             }
 
             @Override

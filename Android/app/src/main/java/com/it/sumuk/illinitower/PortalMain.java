@@ -1,5 +1,6 @@
 package com.it.sumuk.illinitower;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,13 +41,29 @@ public class PortalMain extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String myBalance = dataSnapshot.child(currentUserID).child("Balance").getValue().toString();
-                myBalance = "$" + myBalance;
-                balance.setText(myBalance);
+                try{
+                    String myBalance = dataSnapshot.child(currentUserID).child("Balance").getValue().toString();
+                    myBalance = "$" + myBalance;
+                    balance.setText(myBalance);
 
-                String myDate = dataSnapshot.child(currentUserID).child("Date").getValue().toString();
-                myDate = "Due Date: " + myDate;
-                date.setText(myDate);
+                    String myDate = dataSnapshot.child(currentUserID).child("Date").getValue().toString();
+                    myDate = "Due Date: " + myDate;
+                    date.setText(myDate);
+                }catch (Exception e){
+                    String myBalance = "0.00";
+                    myBalance = "$" + myBalance;
+                    balance.setText(myBalance);
+
+                    String myDate = "00/00/0000";
+                    myDate = "Due Date: " + myDate;
+                    date.setText(myDate);
+
+                    Toast.makeText(PortalMain.this, "Please Log In for access.",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PortalMain.this, MainPage.class);
+                    startActivity(intent);
+                }
+
             }
 
             @Override

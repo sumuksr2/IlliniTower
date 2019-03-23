@@ -1,24 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginRight="20dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="20dp">
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent">
+
         <ImageView
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:id="@+id/bulletinimage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"
-            android:id="@+id/bulletinimage"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/txtBackground"
+            android:layout_width="400dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="176dp"
+            android:alpha="0.5"
+            android:background="@color/browser_actions_text_color"
+            app:layout_constraintStart_toStartOf="@+id/bulletinimage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bulletintitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="title"
-            android:id="@+id/bulletintitle"/>
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtBackground" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/bulletindescription"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="description"
-            android:id="@+id/bulletindescription"/>
-    </LinearLayout>
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bulletintitle" />
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.v7.widget.CardView>

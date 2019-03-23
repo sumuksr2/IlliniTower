@@ -155,22 +155,13 @@
         android:textSize="15sp" />
 
     <ImageView
-        android:id="@+id/imgMessages"
+        android:id="@+id/imgSignOut"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
-    <ImageView
-        android:id="@+id/imgNavigation"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        app:srcCompat="@drawable/navigation_home" />
+        android:layout_marginRight="31dp"
+        app:srcCompat="@drawable/signout" />
 
 
 </RelativeLayout>

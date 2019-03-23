@@ -19,14 +19,19 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class BulletinMain extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DatabaseReference myref;
+    FirebaseRecyclerAdapter<Bulletin,BulletinViewHolder> recyclerAdapter;
 
 
     @Override
@@ -37,23 +42,14 @@ public class BulletinMain extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         myref = FirebaseDatabase.getInstance().getReference().child("Bulletin");
 
-        FirebaseRecyclerOptions<Bulletin> options = new FirebaseRecyclerOptions.Builder<Bulletin>().setQuery(myref, Bulletin.class).build();
-
-        String test = "onCreate";
-        Toast.makeText(BulletinMain.this, test,
-                Toast.LENGTH_SHORT).show();
-
-        FirebaseRecyclerAdapter<Bulletin,BulletinViewHolder> recyclerAdapter=new FirebaseRecyclerAdapter<Bulletin,BulletinViewHolder>(options) {
+        Query query = FirebaseDatabase.getInstance().getReference("/Bulletin");
+        FirebaseRecyclerOptions<Bulletin> options = new FirebaseRecyclerOptions.Builder<Bulletin>().setQuery(query, Bulletin.class).build();
+        recyclerAdapter=new FirebaseRecyclerAdapter<Bulletin,BulletinViewHolder>(options) {
             @NonNull
             @Override
             public BulletinViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.individual_row, viewGroup, false);
-
-                String test = "onCreateViewHolder";
-
-                Toast.makeText(BulletinMain.this, test,
-                        Toast.LENGTH_SHORT).show();
 
                 return new BulletinViewHolder(view);
             }
@@ -63,19 +59,11 @@ public class BulletinMain extends AppCompatActivity {
                 holder.setTitle(model.getTitle());
                 holder.setDescription(model.getDescription());
                 holder.setImage(model.getImage());
-
-                String test = "onBindViewHolder";
-
-                Toast.makeText(BulletinMain.this, test,
-                        Toast.LENGTH_SHORT).show();
-
             }
         };
-
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(BulletinMain.this));
 
         transparentStatusAndNavigation();
     }
@@ -105,6 +93,12 @@ public class BulletinMain extends AppCompatActivity {
                     .load(image)
                     .into(cardimage);
         }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        recyclerAdapter.startListening();
     }
 
     private void transparentStatusAndNavigation() {
