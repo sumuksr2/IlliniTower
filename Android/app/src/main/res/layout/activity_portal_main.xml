@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imgContactPortal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/contact_text" />
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imgPackagesPortal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/packages_text" />

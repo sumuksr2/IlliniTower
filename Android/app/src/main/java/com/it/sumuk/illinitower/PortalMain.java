@@ -3,12 +3,15 @@ package com.it.sumuk.illinitower;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,9 @@ public class PortalMain extends AppCompatActivity {
     public static String currentUserID;
     private TextView balance;
     private TextView date;
+    private ImageView packages;
+    public static String roomNumber;
+    private ImageView contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,9 @@ public class PortalMain extends AppCompatActivity {
         currentUserID = mAuth.getUid();
         balance = (TextView) findViewById(R.id.txtBalance);
         date = (TextView) findViewById(R.id.txtDueDate);
+        packages = (ImageView) findViewById(R.id.imgPackagesPortal);
+        roomNumber = "None";
+        contact = (ImageView) findViewById(R.id.imgContactPortal);
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -49,6 +58,8 @@ public class PortalMain extends AppCompatActivity {
                     String myDate = dataSnapshot.child(currentUserID).child("Date").getValue().toString();
                     myDate = "Due Date: " + myDate;
                     date.setText(myDate);
+
+                    roomNumber = dataSnapshot.child(currentUserID).child("Unit").getValue().toString();
                 }catch (Exception e){
                     String myBalance = "0.00";
                     myBalance = "$" + myBalance;
@@ -57,6 +68,8 @@ public class PortalMain extends AppCompatActivity {
                     String myDate = "00/00/0000";
                     myDate = "Due Date: " + myDate;
                     date.setText(myDate);
+
+                    roomNumber = dataSnapshot.child(currentUserID).child("Unit").getValue().toString();
 
                     Toast.makeText(PortalMain.this, "Please Log In for access.",
                             Toast.LENGTH_SHORT).show();
@@ -72,7 +85,65 @@ public class PortalMain extends AppCompatActivity {
             }
         });
 
+        packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("Packages");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    boolean found = false;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                            String room = "";
+                            try{
+                                room = item_snapshot.getKey();
+                            }catch (Exception e){
+                                room = "No packages to pick-up.";
+                            }
+                            if (room.equals("No packages to pick-up.")){
+                                Toast.makeText(PortalMain.this, room,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                if (room.equals(roomNumber)){
+                                    String packagespickup = item_snapshot.getValue().toString();
+                                    packagespickup = "You have " + packagespickup + " package(s) to pick-up.";
+                                    Toast.makeText(PortalMain.this, packagespickup,
+                                            Toast.LENGTH_SHORT).show();
+                                    found = true;
+                                }
+                            }
+                        }
+                        if (found == false){
+                            Toast.makeText(PortalMain.this, "You have 0 package(s) to pick-up.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError){
 
+                    }
+                });
+            }
+            });
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contact.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PortalMain.this);
+                        builder
+                                .setTitle("Contact Us")
+                                .setMessage("Leasing: 217.814.0000\nResidents: 217.344.0400\nFax: 217.344.8162\nE-mail: info@illinitower.net")
+                                .setPositiveButton("Close", null)
+                                .show();
+                    }
+                });
+            }
+        });
 
         transparentStatusAndNavigation();
     }

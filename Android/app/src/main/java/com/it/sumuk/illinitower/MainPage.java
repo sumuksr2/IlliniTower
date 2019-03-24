@@ -11,12 +11,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,7 @@ public class MainPage extends AppCompatActivity {
     private DatabaseReference usersRef;
     private FirebaseAuth mAuth;
     public static String currentUserID;
+    public static String roomNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,9 @@ public class MainPage extends AppCompatActivity {
         final ImageView portal = (ImageView) findViewById(R.id.imgPortal);
         final ImageView bulletin = (ImageView) findViewById(R.id.imgBulletin);
         final ImageView signout = (ImageView) findViewById(R.id.imgSignOut);
+        final ImageView packages = (ImageView) findViewById(R.id.imgPackages);
+        final ImageView contact = (ImageView) findViewById(R.id.imgContact);
+        roomNumber = "None";
         nameLabel = (TextView) findViewById(R.id.txtName);
         flexLabel = (TextView) findViewById(R.id.txtFlexHome);
         unitLabel = (TextView) findViewById(R.id.txtUnit);
@@ -60,6 +66,7 @@ public class MainPage extends AppCompatActivity {
                     String firstName = dataSnapshot.child(currentUserID).child("FirstName").getValue().toString();
 
                     firstName = "Welcome, " + firstName + "!";
+                    roomNumber = unitNumber;
                     unitNumber = "Unit: " + unitNumber;
                     flexNumber = "IlliniFlex: $" + flexNumber;
 
@@ -69,6 +76,7 @@ public class MainPage extends AppCompatActivity {
                 } catch(Exception e){
                     String firstName = "Welcome, Guest!";
                     String unitNumber = "Unit: None";
+                    roomNumber = "None";
                     String flexNumber = "IlliniFlex: $0.00";
 
                     nameLabel.setText(firstName);
@@ -133,6 +141,60 @@ public class MainPage extends AppCompatActivity {
                     }
                 });
                 adb.show();
+            }
+        });
+
+        packages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("Packages");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    boolean found = false;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item_snapshot : dataSnapshot.getChildren()) {
+                            String room = "";
+                            try{
+                                room = item_snapshot.getKey();
+                            }catch (Exception e){
+                                room = "No packages to pick-up.";
+                            }
+                            if (room.equals("No packages to pick-up.")){
+                                Toast.makeText(MainPage.this, room,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                if (room.equals(roomNumber)){
+                                    String packagespickup = item_snapshot.getValue().toString();
+                                    packagespickup = "You have " + packagespickup + " package(s) to pick-up.";
+                                    Toast.makeText(MainPage.this, packagespickup,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                        if (found == false){
+                            Toast.makeText(MainPage.this, "You have 0 package(s) to pick-up.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError){
+
+                    }
+                });
+            }
+        });
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+                builder
+                        .setTitle("Contact Us")
+                        .setMessage("Leasing: 217.814.0000\nResidents: 217.344.0400\nFax: 217.344.8162\nE-mail: info@illinitower.net")
+                        .setPositiveButton("Close", null)
+                        .show();
             }
         });
 
